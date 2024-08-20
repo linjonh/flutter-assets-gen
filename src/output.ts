@@ -3,17 +3,17 @@ import path from "./utils/path"
 import type { ParserInfo } from "./info"
 import { VNode } from "./vnode"
 import * as vscode from "vscode"
-import { loadConf } from "./utils/util"
+import { IConfig, loadConf } from "./utils/util"
 
 const createTemplateBasicStr = () => `
+// ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
   __CODE_TEMPLATE_CONTENTS_REPLACEMENT__
 }
 
 `
-export function getTemplate() {
-  const conf = loadConf()
+export function getTemplate(conf: IConfig) {
   let result = createTemplateBasicStr().replace(/^[\n\r]/, "")
 
   if (conf.classname) {
@@ -28,10 +28,13 @@ export function outputCode(
   dist: string,
   filename = "assets.dart"
 ) {
+  const conf = loadConf()
   const content = list
-    .map((item: ParserInfo) => new VNode(item).gen())
+    .map((item: ParserInfo) =>
+      new VNode(item, conf.ignore_comments || false).gen()
+    )
     .join("\n")
-  const temp = getTemplate()
+  const temp = getTemplate(conf)
 
   const result = temp.replace("__CODE_TEMPLATE_CONTENTS_REPLACEMENT__", content)
 

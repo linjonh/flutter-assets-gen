@@ -18,7 +18,7 @@ flutter_assets:
   filename: assets.dart
 ```
 
-  - **field_prefix为可选字段，如果想去掉assets前缀，则提供一个空，默认为assets** (**field_prefix is ​​an optional field, if you want to remove the assets prefix, provide an empty value, the default is assets**)
+  - **field_prefix为可选字段，如果想去掉assets前缀，则提供一个空，默认为assets** (field_prefix is ​​an optional field, if you want to remove the assets prefix, provide an empty value, the default is assets)
   ```yaml
   flutter_assets:
     assets_path: assets/
@@ -26,13 +26,33 @@ flutter_assets:
     filename: assets.dart
     field_prefix:
   ```
-  - **修改prefix** (**Modify prefix**)
+  - **修改prefix** (Modify prefix)
   ```yaml
   flutter_assets:
     assets_path: assets/
     output_path: lib/constants/
     filename: assets.dart
     field_prefix: resource
+  ```
+  - **忽略注释** (ignore comments) [#12](#12)
+  ```yaml
+  flutter_assets:
+    assets_path: assets/
+    output_path: lib/constants/
+    filename: assets.dart
+    field_prefix: resource
+    ignore_comment: true
+  ```
+  - **只选择部分文件夹** (Select Partial Folders) [#10](#10)
+  ```yaml
+  flutter_assets:
+    assets_path: 
+      - assets/images/
+      - assets/msic/
+    output_path: lib/constants/
+    filename: assets.dart
+    field_prefix:
+    classname: R
   ```
 
 - step 2. 生成文件内容 (Generate file content)
@@ -74,6 +94,7 @@ flutter_assets:
 生成内容 (Generate content)
 
 ```dart
+// ignore_for_file: prefer_single_quotes
 class R {
   R._();
 

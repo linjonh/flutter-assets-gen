@@ -2,13 +2,22 @@ import type { ParserInfo } from "./info"
 
 export class VNode {
   info: ParserInfo
-  constructor(info: ParserInfo) {
+  ignoreComments: boolean
+  constructor(info: ParserInfo, ignoreComments = false) {
     this.info = info
+    this.ignoreComments = ignoreComments || false
   }
-  gen() {
+
+  generateComments() {
+    if (this.ignoreComments) return ""
     return `
   /// Assets for ${this.info.identifier}
   /// ${this.info.tag}
+    `
+  }
+
+  gen() {
+    return `${this.generateComments().trim()}
   static const String ${this.info.identifier} = "${this.info.tag}";`
   }
 }

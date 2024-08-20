@@ -52,13 +52,14 @@ export const util = {
   }
 }
 
-interface IConfig {
+export interface IConfig {
   assets_path: Array<string>
   output_path: string
   pubspec: string
   field_prefix: string
   filename: string
   classname: string
+  ignore_comments?: boolean
 }
 
 export function loadConf(): IConfig {
@@ -82,7 +83,8 @@ export function loadConf(): IConfig {
       pubspec: FLUTTER_PUBSPEC,
       filename,
       field_prefix: "",
-      classname
+      classname,
+      ignore_comments: false
     }
   }
 
@@ -114,6 +116,7 @@ export function loadConf(): IConfig {
     pubspec: FLUTTER_PUBSPEC,
     field_prefix: field_prefix as string,
     filename,
-    classname
+    classname,
+    ignore_comments: doc?.flutter_assets?.ignore_comments || false
   }
 }

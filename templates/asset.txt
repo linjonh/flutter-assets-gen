@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
   __CODE_TEMPLATE_CONTENTS_REPLACEMENT__

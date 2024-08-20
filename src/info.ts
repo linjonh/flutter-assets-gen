@@ -33,19 +33,23 @@ export class CtorAssetFileInfo {
     // path.sep on win is \ & darwin or linux is /
     const relationPath = info.dir.replace(this.rootPath, ``)
 
-    const identifier =
-      relationPath
-        .split(path.sep)
-        .map((item, i) => {
-          if (i === 0) {
-            if (this.prefix !== null) return this.prefix
-            else return item
-          } else if (this.prefix === "") {
-            return i === 1 ? util.lowerFirstLeter(item) : normalizeName(item)
-          } else return normalizeName(item)
-        })
-        .join("") + normalizeName(info.name)
+    const pathName = relationPath
+      .split(path.sep)
+      .map((item, i) => {
+        if (i === 0) {
+          if (this.prefix !== null) return this.prefix
+          else return util.lowerFirstLeter(item)
+        } else if (this.prefix === "") {
+          return i === 1 ? util.lowerFirstLeter(item) : normalizeName(item)
+        } else return normalizeName(item)
+      })
+      .join("")
 
+    const baseName =
+      pathName === ""
+        ? util.lowerFirstLeter(normalizeName(info.name))
+        : normalizeName(info.name)
+    const identifier = pathName + baseName
     const result: ParserInfo = {
       ...info,
       identifier: identifier,
@@ -57,12 +61,20 @@ export class CtorAssetFileInfo {
 }
 
 export function normalizeName(str: string) {
-  return str
+  const _str = translateChinese(str)
+  return _str
     .replace(/[-\.]/g, "_")
     .replace(/@/g, "")
     .split("_")
     .map((v: string) => util.upperFirstLetter(v))
     .join("")
+}
+
+export function translateChinese(str: string) {
+  return str.replace(/[\u4e00-\u9fa5]/g, function (word, i) {
+    const charStr = word.charCodeAt(0).toString(16)
+    return i === 0 ? charStr : `_${charStr}`
+  })
 }
 
 export function sortAssets(list: ParserInfo[]) {
