@@ -15,3 +15,5 @@ out/
 *.ntvs*
 *.njsproj
 *.sln
+
+*.vsix
