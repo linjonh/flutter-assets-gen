@@ -10,7 +10,7 @@ module.exports = {
       name: "🐛 fix: 修复一个bug"
     },
     {
-      value: ":pencil: docs",
+      value: ":memo: docs",
       name: "📝 docs: 更新文档"
     },
     {
