@@ -56,10 +56,16 @@ export interface IConfig {
   assets_path: Array<string>
   output_path: string
   pubspec: string
-  field_prefix: string
+  field_prefix:
+    | string
+    | {
+        from?: string | null
+        to?: string | null
+      }
   filename: string
   classname: string
   ignore_comments?: boolean
+  package_name?: string
 }
 
 export function loadConf(): IConfig {
@@ -84,15 +90,16 @@ export function loadConf(): IConfig {
       filename,
       field_prefix: "",
       classname,
-      ignore_comments: false
+      ignore_comments: false,
+      package_name: ""
     }
   }
 
-  const config = doc.flutter_assets
+  const config = doc.flutter_assets as IConfig
   const assets_path: string[] | string | undefined = config.assets_path
   const output_path = config.output_path || "lib/assets"
   // 前缀
-  let field_prefix = ""
+  let field_prefix: IConfig["field_prefix"]
   // 没提供为undefined, 提供但是为空是null
   if (config.field_prefix === null) {
     field_prefix = ""
@@ -117,6 +124,7 @@ export function loadConf(): IConfig {
     field_prefix: field_prefix as string,
     filename,
     classname,
-    ignore_comments: doc?.flutter_assets?.ignore_comments || false
+    ignore_comments: config?.ignore_comments || false,
+    package_name: config?.package_name || ""
   }
 }

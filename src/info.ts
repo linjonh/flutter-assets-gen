@@ -1,6 +1,6 @@
 import path from "./utils/path"
 import * as PATH from "path"
-import { util } from "./utils/util"
+import { IConfig, util } from "./utils/util"
 import * as vscode from "vscode"
 export interface ParserInfo extends PATH.ParsedPath {
   // 相对路径
@@ -11,10 +11,10 @@ export interface ParserInfo extends PATH.ParsedPath {
 export class CtorAssetFileInfo {
   filePath: string
   rootPath: string
-  prefix: string
-  constructor(filePath: string, rootPath: string, prefix: string) {
+  conf: IConfig
+  constructor(filePath: string, rootPath: string, conf: IConfig) {
     this.filePath = path.normalize(filePath)
-    this.prefix = prefix
+    this.conf = conf
     rootPath = path.normalize(rootPath)
     if (rootPath.endsWith(path.sep)) this.rootPath = rootPath
     else if (rootPath) {
@@ -32,28 +32,43 @@ export class CtorAssetFileInfo {
 
     // path.sep on win is \ & darwin or linux is /
     const relationPath = info.dir.replace(this.rootPath, ``)
-
-    const pathName = relationPath
+    const prefix = this.conf.field_prefix
+    let pathName = relationPath
       .split(path.sep)
       .map((item, i) => {
         if (i === 0) {
-          if (this.prefix !== null) return this.prefix
+          if (typeof prefix === "string" && prefix !== null) return prefix
           else return util.lowerFirstLeter(item)
-        } else if (this.prefix === "") {
-          return i === 1 ? util.lowerFirstLeter(item) : normalizeName(item)
+        } else if (i === 1) {
+          return prefix === ""
+            ? util.lowerFirstLeter(item)
+            : normalizeName(item)
         } else return normalizeName(item)
       })
       .join("")
+
+    if (
+      typeof prefix === "object" &&
+      ![undefined, null, ""].includes(prefix.from) &&
+      prefix.to !== undefined
+    ) {
+      // to --> null
+      const re = new RegExp(`^${prefix.from}`, "")
+      pathName = util.lowerFirstLeter(pathName.replace(re, prefix.to || ""))
+    }
 
     const baseName =
       pathName === ""
         ? util.lowerFirstLeter(normalizeName(info.name))
         : normalizeName(info.name)
     const identifier = pathName + baseName
+    const tag = `${relationPath.replace(/[\\]/g, "/")}/${info.base}`
     const result: ParserInfo = {
       ...info,
       identifier: identifier,
-      tag: `${relationPath.replace(/[\\]/g, "/")}/${info.base}`
+      tag: !["", null, undefined].includes(this.conf.package_name)
+        ? `packages/${this.conf.package_name}/${tag}`
+        : tag
     }
 
     return result

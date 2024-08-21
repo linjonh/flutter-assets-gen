@@ -40,11 +40,7 @@ export class Find {
             return ext !== "" && ext !== `.dart`
           })
           .forEach(filePath => {
-            const info = new CtorAssetFileInfo(
-              filePath,
-              this.rootPath,
-              conf.field_prefix
-            )
+            const info = new CtorAssetFileInfo(filePath, this.rootPath, conf)
             const p = info.parserPath()
             if (p) {
               normalizeFile.push(p)
@@ -52,8 +48,19 @@ export class Find {
           })
       })
 
+    normalizeFile = this.deduplicate(normalizeFile)
     normalizeFile = sortAssets(normalizeFile)
 
     outputCode(normalizeFile, conf.output_path, conf.filename)
+  }
+
+  deduplicate(list: ParserInfo[]) {
+    const map = new Map<string, ParserInfo>()
+    list.forEach(item => {
+      if (!map.has(item.identifier)) {
+        map.set(item.identifier, item)
+      }
+    })
+    return Array.from(map.values())
   }
 }

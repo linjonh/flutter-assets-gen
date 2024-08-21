@@ -17,7 +17,7 @@ export class VNode {
   }
 
   gen() {
-    return `${this.generateComments().trim()}
+    return `${this.generateComments().trimEnd()}
   static const String ${this.info.identifier} = "${this.info.tag}";`
   }
 }
