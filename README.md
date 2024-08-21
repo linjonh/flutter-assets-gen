@@ -41,7 +41,7 @@ flutter_assets:
     output_path: lib/constants/
     filename: assets.dart
     field_prefix: resource
-    ignore_comment: true
+    ignore_comments: true
   ```
   - **只选择部分文件夹** (Select Partial Folders) [#10](#10)
   ```yaml
