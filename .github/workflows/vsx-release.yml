@@ -1,0 +1,45 @@
+name: VSX Release
+
+on:
+  push:
+    branches:
+      - "publish"
+      # - "vscode/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v4.1.1
+
+      # - uses: pnpm/action-setup@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          # support pnpm yarn npm or ''
+          cache: yarn
+          registry-url: "https://registry.npmjs.org"
+
+      - id: ShortSha
+        run: echo "::set-output name=value::$(git rev-parse --short HEAD)"
+
+      # - name: Install dependencies
+      #   run: pnpm install
+      - name: Install dependencies
+        run: yarn i
+
+      # https://github.com/HaaLeo/publish-vscode-extension
+      - name: Build and publish vscode vsx
+        uses: HaaLeo/publish-vscode-extension@v1
+        id: PublishVSX
+        with:
+          # 如果项目不在根目录, 可以修改这里
+          # packagePath: ./packages/vscode
+          pat: ${{ secrets.VSCODE_TOKEN }}
+
+          skipDuplicate: false
+          registryUrl: https://marketplace.visualstudio.com
+          yarn: false
