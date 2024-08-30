@@ -34,7 +34,7 @@ jobs:
       # - name: Install dependencies
       #   run: pnpm install
       - name: Install dependencies
-        run: yarn i
+        run: yarn
       # 使用@/vscode/vsce 会预先执行vscode:prepublish
       # https://github.com/HaaLeo/publish-vscode-extension
       - name: Build and publish vscode vsx
