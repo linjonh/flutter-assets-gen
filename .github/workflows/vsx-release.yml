@@ -26,7 +26,7 @@ jobs:
           node-version: 20
           # support pnpm yarn npm or ''
           cache: yarn
-          registry-url: "https://registry.npmjs.org"
+          registry-url: "https://registry.npmmirror.com"
 
       - id: ShortSha
         run: echo "::set-output name=value::$(git rev-parse --short HEAD)"
