@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 16
           # support pnpm yarn npm or ''
           cache: yarn
           registry-url: "https://registry.npmmirror.com"
@@ -34,7 +34,7 @@ jobs:
       # - name: Install dependencies
       #   run: pnpm install
       - name: Install dependencies
-        run: yarn config set strict-ssl false && yarn
+        run: yarn
       # 使用@/vscode/vsce 会预先执行vscode:prepublish
       # https://github.com/HaaLeo/publish-vscode-extension
       - name: Build and publish vscode vsx
