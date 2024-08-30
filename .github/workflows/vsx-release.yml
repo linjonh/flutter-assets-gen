@@ -1,10 +1,15 @@
 name: VSX Release
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
       - "publish"
-      # - "vscode/**"
+    # tags:
+    # - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+    # - "vscode/**"
 
 jobs:
   deploy:
@@ -30,7 +35,7 @@ jobs:
       #   run: pnpm install
       - name: Install dependencies
         run: yarn i
-
+      # 使用@/vscode/vsce 会预先执行vscode:prepublish
       # https://github.com/HaaLeo/publish-vscode-extension
       - name: Build and publish vscode vsx
         uses: HaaLeo/publish-vscode-extension@v1
@@ -43,3 +48,35 @@ jobs:
           skipDuplicate: false
           registryUrl: https://marketplace.visualstudio.com
           yarn: false
+
+      - name: Zip Dist
+        run: zip -r archive.zip . -x "./node_modules/*" "./out/*"
+
+      - name: Read package.json
+        uses: tyankatsu0105/read-package-version-actions@v1
+        with:
+          path: "./"
+        id: PackageVersion
+      
+      - name: Create Release for Tag
+        id: CreateRelease
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }} # 这块需要用到 github的token，因为需要对分之进行代码推送
+        with:
+          tag_name: build-v${{ steps.PackageVersion.outputs.version }}
+          release_name: Release v${{ steps.PackageVersion.outputs.version }}
+          prerelease: false # 是否为预发布版本
+          draft: false
+          body: |
+            新版本发布v${{ steps.PackageVersion.outputs.version }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        with:
+          upload_url: ${{ steps.CreateRelease.outputs.upload_url }}
+          asset_path: ./archive.zip
+          asset_name: bundled.zip
+          asset_content_type: application/zip
