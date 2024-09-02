@@ -19,6 +19,10 @@ jobs:
       - name: Check out git repository
         uses: actions/checkout@v4.1.1
 
+      - name: Conditionally Install Yarn for local Github Actions Emulator ACT
+        if: ${{env.ACT}}
+        run: npm -g install yarn
+
       # - uses: pnpm/action-setup@v3
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -57,7 +61,7 @@ jobs:
         with:
           path: "./"
         id: PackageVersion
-      
+
       - name: Create Release for Tag
         id: CreateRelease
         uses: actions/create-release@v1

@@ -1,0 +1,1 @@
+act --container-architecture linux/arm64 --secret-file .github/workflows/.secrets
