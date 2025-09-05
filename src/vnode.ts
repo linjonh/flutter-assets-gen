@@ -1,4 +1,4 @@
-import type { ParserInfo } from "./info"
+import type { ParserInfo } from "./info.js"
 
 export class VNode {
   info: ParserInfo

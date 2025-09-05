@@ -1,3 +1,6 @@
+// v0.2.0 自动生成，请勿修改，使用方法参考：https://github.com/linjonh/flutter-assets-gen.git
+// author：林建有 
+// email: jaysen.lin@foxmail.com
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();

@@ -1,6 +1,6 @@
-import path from "./utils/path"
+import path from "./utils/path.js"
 import * as PATH from "path"
-import { IConfig, util } from "./utils/util"
+import { IConfig, util } from "./utils/util.js"
 import * as vscode from "vscode"
 export interface ParserInfo extends PATH.ParsedPath {
   // 相对路径

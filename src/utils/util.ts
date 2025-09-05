@@ -1,8 +1,8 @@
 import * as fs from "fs"
-import path from "./path"
+import path from "./path.js"
 import * as vscode from "vscode"
-import { FLUTTER_PUBSPEC, YamlObject } from "./contants"
-import { trimEnd } from "lodash"
+import { FLUTTER_PUBSPEC, YamlObject } from "./contants.js"
+import { trimEnd } from "lodash-es"
 import * as yaml from "js-yaml"
 
 export const util = {
@@ -66,6 +66,7 @@ export interface IConfig {
   classname: string
   ignore_comments?: boolean
   package_name?: string
+  exclude: Array<string>
 }
 
 export function loadConf(): IConfig {
@@ -85,6 +86,7 @@ export function loadConf(): IConfig {
     )
     return {
       assets_path: [],
+      exclude: [],
       output_path: ``,
       pubspec: FLUTTER_PUBSPEC,
       filename,
@@ -97,6 +99,7 @@ export function loadConf(): IConfig {
 
   const config = doc.flutter_assets as IConfig
   const assets_path: string[] | string | undefined = config.assets_path
+  const exclude: string[] | string | undefined = config.exclude
   const output_path = config.output_path || "lib/assets"
   // 前缀
   let field_prefix: IConfig["field_prefix"]
@@ -119,6 +122,9 @@ export function loadConf(): IConfig {
     assets_path: Array.isArray(assets_path)
       ? assets_path.map((a: string) => trimEnd(a, "/"))
       : [trimEnd(assets_path, "/")],
+    exclude: Array.isArray(exclude)
+      ? exclude.map((a: string) => trimEnd(a, "/"))
+      : [trimEnd(exclude, "/")],
     output_path: trimEnd(output_path, "/"),
     pubspec: FLUTTER_PUBSPEC,
     field_prefix: field_prefix as string,

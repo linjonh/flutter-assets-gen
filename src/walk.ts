@@ -1,5 +1,5 @@
-import { Watcher } from "./watch"
-import { validateFlutterProject } from "./utils/check"
+import { Watcher } from "./watch.js"
+import { validateFlutterProject } from "./utils/check.js"
 
 export class Walk {
   root: string

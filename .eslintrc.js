@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // Fix typescript error by install @typescript-eslint/parser & @typescript-eslint/eslint-plugin and set extends plugin
   extends: [
     "plugin:prettier/recommended",

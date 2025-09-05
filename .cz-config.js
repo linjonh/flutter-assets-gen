@@ -1,5 +1,5 @@
 /// https://github.com/leoforfree/cz-customizable/blob/master/cz-config-EXAMPLE.js
-module.exports = {
+export default {
   types: [
     {
       value: ":sparkles: feat",

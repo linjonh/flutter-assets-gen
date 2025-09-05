@@ -1,12 +1,12 @@
 import * as glob from "glob"
-import { CtorAssetFileInfo, sortAssets } from "./info"
-import type { ParserInfo } from "./info"
-import { outputCode } from "./output"
-import path from "./utils/path"
-import { validateFlutterProject } from "./utils/check"
-import { loadConf } from "./utils/util"
+import { CtorAssetFileInfo, sortAssets } from "./info.js"
+import type { ParserInfo } from "./info.js"
+import { outputCode } from "./output.js"
+import path from "./utils/path.js"
+import { validateFlutterProject } from "./utils/check.js"
+import { loadConf } from "./utils/util.js"
 import * as vscode from "vscode"
-import { pluginName } from "./utils/constants"
+import { pluginName } from "./utils/constants.js"
 
 export class Find {
   rootPath: string
@@ -29,10 +29,15 @@ export class Find {
     }
 
     let normalizeFile: ParserInfo[] = []
+    console.log(`[${pluginName}] Start find assets...`)
+    console.log(`[${pluginName}] exclude patterns: ${conf.exclude}`)
+
     conf.assets_path
       .map(item => path.resolve(this.rootPath, item))
       .forEach(partern => {
-        const files = glob.sync(partern.replace(/\\/g, "/") + `/**/*`)
+        const files = glob.sync(partern.replace(/\\/g, "/") + `/**/*`, {
+          ignore: conf.exclude
+        })
 
         files
           .filter(file => {
@@ -40,6 +45,7 @@ export class Find {
             return ext !== "" && ext !== `.dart`
           })
           .forEach(filePath => {
+            console.log(`[${pluginName}] found asset: ${filePath}`)
             const info = new CtorAssetFileInfo(filePath, this.rootPath, conf)
             const p = info.parserPath()
             if (p) {

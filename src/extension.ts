@@ -1,9 +1,9 @@
 import * as vscode from "vscode"
-import { util } from "./utils/util"
-import { Find } from "./find"
-import { Walk } from "./walk"
-import { Watcher } from "./watch"
-import { pluginName } from "./utils/constants"
+import { util } from "./utils/util.js"
+import { Find } from "./find.js"
+import { Walk } from "./walk.js"
+import { Watcher } from "./watch.js"
+import { pluginName } from "./utils/constants.js"
 
 const commands = {
   watch: `${pluginName}.watch`,

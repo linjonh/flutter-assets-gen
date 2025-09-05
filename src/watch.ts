@@ -1,9 +1,10 @@
 /// 文件 or 文件夹
 import * as chokidar from "chokidar"
-import { Find } from "./find"
-import { debounce } from "./utils/debounce"
-import { loadConf } from "./utils/util"
+import { Find } from "./find.js"
+import { debounce } from "./utils/debounce.js"
+import { loadConf } from "./utils/util.js"
 import * as vscode from "vscode"
+import path from "./utils/path.js"
 
 export class Watcher {
   _instance: chokidar.FSWatcher | undefined
@@ -42,8 +43,13 @@ export class Watcher {
   }
 
   start() {
+    let ignore_path = (
+      Array.isArray(this.config.exclude)
+        ? this.config.exclude
+        : [this.config.exclude]
+    ).map(i => path.resolve(this.rootPath, i).replace(/\\/g, "/"))
     this._instance = chokidar.watch(this.config.assets_path, {
-      ignored: /(^|[\/\\])\..*$/,
+      ignored: [/(^|[\/\\])\..*$/, ...ignore_path],
       ignoreInitial: true
     })
 

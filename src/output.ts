@@ -1,11 +1,12 @@
 import * as fs from "fs"
-import path from "./utils/path"
-import type { ParserInfo } from "./info"
-import { VNode } from "./vnode"
+import path from "./utils/path.js"
+import type { ParserInfo } from "./info.js"
+import { VNode } from "./vnode.js"
 import * as vscode from "vscode"
-import { IConfig, loadConf } from "./utils/util"
+import { IConfig, loadConf } from "./utils/util.js"
 
 const createTemplateBasicStr = () => `
+// v0.2.0 自动生成，请勿修改，使用方法参考：https://github.com/linjonh/flutter-assets-gen.git
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();

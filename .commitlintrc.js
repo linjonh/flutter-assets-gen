@@ -1,5 +1,5 @@
 // 0 Disabled 1 warning 2 Error
-module.exports = {
+export default  {
   // extends: ["gitmoji", "cz"],
   extends: ["gitmoji"],
   rules: {

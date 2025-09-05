@@ -1,5 +1,5 @@
 import * as fs from "fs"
-import { FLUTTER_PUBSPEC } from "./contants"
+import { FLUTTER_PUBSPEC } from "./contants.js"
 import * as vscode from "vscode"
 
 export function validateFlutterProject() {
