@@ -21,7 +21,9 @@ export function getTemplate(conf: IConfig) {
   let result = createTemplateBasicStr().replace(/^[\n\r]/, "")
 
   if (conf.classname) {
-    result = result.replace(/^class Assets/gi, `class ${conf.classname}`).replace(/Assets._();/,`${conf.classname}._()`)
+    result = result
+      .replace(/class Assets/gi, `class ${conf.classname}`)
+      .replace(/Assets._\(\);/, `${conf.classname}._\(\)`)
   }
 
   return result
