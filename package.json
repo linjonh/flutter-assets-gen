@@ -20,7 +20,7 @@
     "url": "https://github.com/linjonh/flutter-assets-gen.git"
   },
   "publisher": "linjonh",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "engines": {
     "vscode": "^1.85.0"
   },
