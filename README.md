@@ -38,7 +38,7 @@ flutter_assets:
   field_prefix: resource
 ```
 
-- **忽略注释** (ignore comments) [#12](https://github.com/weekitmo/flutter-assets-gen/issues/12)
+- **忽略注释** (ignore comments)
 
 ```yaml
 flutter_assets:
@@ -49,13 +49,32 @@ flutter_assets:
   ignore_comments: true
 ```
 
-- **只选择部分文件夹** (Select Partial Folders) [#10](https://github.com/weekitmo/flutter-assets-gen/issues/10)
+- **只选择部分文件夹** (Select Partial Folders)
 
 ```yaml
 flutter_assets:
   assets_path:
     - assets/images/
     - assets/msic/
+  output_path: lib/constants/
+  filename: assets.dart
+  field_prefix:
+  classname: R
+```
+
+- **排除部分文件夹**
+
+  使用 exclude 字段数组，来排除不需要生成的文件夹。匹配正则表达式。
+
+```yaml
+flutter_assets:
+  assets_path:
+    - assets/images/
+    - assets/msic/
+  exclude:
+    - assets/images/**/2.0x/**
+    - assets/images/**/3.0x/**
+    - assets/images/**/4.0x/**
   output_path: lib/constants/
   filename: assets.dart
   field_prefix:
@@ -155,7 +174,7 @@ class MyAsset {
 }
 ```
 
-此时引入时，不用每次都添加package字段
+此时引入时，不用每次都添加 package 字段
 
 ```dart
 import 'package:my_assets_package/assets.dart';
