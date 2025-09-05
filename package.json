@@ -73,9 +73,8 @@
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "package": "npm run check-types && node esbuild.js --production",
     "vsix": "code --install-extension $1",
-    "vs:pat": "export VSCE_PAT=$1 && echo $VSCE_PAT",
     "vs:pack": "vsce package",
-    "vs:publish": "vsce publish"
+    "vs:publish": "./publish.sh $1"
   },
   "config": {
     "commitizen": {
