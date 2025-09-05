@@ -23,7 +23,7 @@ export function getTemplate(conf: IConfig) {
   if (conf.classname) {
     result = result
       .replace(/class Assets/gi, `class ${conf.classname}`)
-      .replace(/Assets._\(\);/, `${conf.classname}._\(\)`)
+      .replace(/Assets._\(\);/, `${conf.classname}._\(\);`)
   }
 
   return result
