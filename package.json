@@ -1,6 +1,6 @@
 {
   "name": "flutter-assets-gen3",
-  "displayName": "Flutter Assets Gen V3",
+  "displayName": "FlutterAssetsGenV3",
   "description": "A plugin to generate flutter assets class file by pubspec.yaml",
   "author": {
     "name": "linjonh",
