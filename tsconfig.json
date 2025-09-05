@@ -6,6 +6,7 @@
 		"lib": [
 			"es6"
 		],
+		"resolveJsonModule": true,
 		"sourceMap": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true, // 👈 避免类型包之间冲突报错

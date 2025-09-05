@@ -4,9 +4,12 @@ import type { ParserInfo } from "./info.js"
 import { VNode } from "./vnode.js"
 import * as vscode from "vscode"
 import { IConfig, loadConf } from "./utils/util.js"
+import { version, repository, author } from "../package.json"
 
 const createTemplateBasicStr = () => `
-// v0.2.0 自动生成，请勿修改，使用方法参考：https://github.com/linjonh/flutter-assets-gen.git
+// v${version} 自动生成，请勿修改，使用方法参考："${repository.url}"
+// author：${author.name}
+// email: ${author.email}
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
@@ -18,7 +21,7 @@ export function getTemplate(conf: IConfig) {
   let result = createTemplateBasicStr().replace(/^[\n\r]/, "")
 
   if (conf.classname) {
-    result = result.replace(/Assets/gi, conf.classname)
+    result = result.replace(/^class Assets/gi, `class ${conf.classname}`).replace(/Assets._();/,`${conf.classname}._()`)
   }
 
   return result
