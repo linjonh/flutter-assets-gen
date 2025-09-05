@@ -1,13 +1,11 @@
 {
 	"compilerOptions": {
-		"target": "ES2020", // 或更高 ES2022 / ESNext
-		"module": "NodeNext", // 配合 "type": "module"
+		"module": "commonjs",
+		"target": "es6",
 		"outDir": "out",
 		"lib": [
-			"ES2020",
-			"DOM"
+			"es6"
 		],
-		"moduleResolution": "nodenext",
 		"sourceMap": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true, // 👈 避免类型包之间冲突报错

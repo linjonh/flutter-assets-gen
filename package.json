@@ -22,7 +22,7 @@
   "publisher": "linjonh",
   "version": "0.2.3",
   "engines": {
-    "vscode": "^1.59.0"
+    "vscode": "^1.85.0"
   },
   "categories": [
     "Other"
@@ -31,7 +31,7 @@
     "onCommand:flutter-assets-gen.watch",
     "onCommand:flutter-assets-gen.generate"
   ],
-  "main": "./out/extension.js",
+  "main": "./out/extension.cjs",
   "contributes": {
     "commands": [
       {
@@ -56,15 +56,22 @@
     "version": "auto-changelog -p && git add CHANGELOG.md",
     "emoji-cp": "cp ./gitmojis.json ./node_modules/commitlint-plugin-gitmoji/lib/gitmojis.json",
     "prettier": "prettier --parser=typescript --write './src/**/*.ts'",
-    "vscode:prepublish": "yarn run compile",
+    "vscode:prepublish": "yarn run compile:es",
     "precompile": "rm -rf out && node ./dir.js && cp -r templates/ out/templates/",
     "compile": "tsc -p ./",
     "prewatch": "rm -rf out && node ./dir.js && cp -r templates/ out/templates/",
     "watch": "tsc -w -p ./",
     "lint": "eslint src --ext ts",
-    "start": "node ./out/extension.js",
+    "start": "node ./out/extension.cjs",
     "prepare": "husky",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "precompile:es": "rm -rf out && node ./dir.js && cp -r templates/ out/templates/",
+    "compile:es": "npm run check-types && node esbuild.js",
+    "check-types": "tsc --noEmit",
+    "watch:es": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && node esbuild.js --production"
   },
   "config": {
     "commitizen": {
@@ -98,6 +105,7 @@
     "commitlint-config-cz": "0.13.2",
     "commitlint-config-gitmoji": "^2.3.1",
     "cz-customizable": "6.3.0",
+    "esbuild": "^0.25.9",
     "eslint": "7.27.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
