@@ -1,8 +1,8 @@
-## debug
+# Debug
 - yarn compile
 - vscode editor press F5 debug
 
-# publish
+# Publish
 ## Installation
 Make sure you have Node.js installed. Then run:
 ```bash
@@ -24,3 +24,10 @@ vsce can also search, retrieve metadata, and unpublish extensions. For a referen
 
 ## Publishing extensions
 see guides [Publishing extensions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
+
+## version and ChangeLog
+
+根据提交记录自动更新changelog.md
+```bash
+npm run version
+```
