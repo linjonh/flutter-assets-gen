@@ -7,15 +7,16 @@ import { IConfig, loadConf } from "./utils/util.js"
 import { version, repository, author } from "../package.json"
 
 const createTemplateBasicStr = () => `
-// v${version} 自动生成，请勿修改，使用方法参考："${repository.url}"
+// 自动生成，请勿修改，
+// VSCode 使用方法参考："${repository.url}"
+// AndroidStudio 使用方法参考: "https://github.com/linjonh/FlutterAssetsGenerator.git
 // author：${author.name}
 // email: ${author.email}
-// ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  __CODE_TEMPLATE_CONTENTS_REPLACEMENT__
-}
 
+__CODE_TEMPLATE_CONTENTS_REPLACEMENT__
+}
 `
 export function getTemplate(conf: IConfig) {
   let result = createTemplateBasicStr().replace(/^[\n\r]/, "")

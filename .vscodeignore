@@ -2,4 +2,5 @@
 .gitignore
 .yarnrc
 vsc-extension-quickstart.md
+.env
 

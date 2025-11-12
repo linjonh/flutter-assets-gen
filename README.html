@@ -150,7 +150,7 @@ uniform float       iSampleRate;
 - step 1. 在项目 pubspec.yaml 下添加 (Add under project pubspec.yaml)：
 
 ```yaml
-flutter_assets:
+flutter_assets_gen:
   assets_path: assets/
   output_path: lib/constants/
   filename: assets.dart
@@ -159,7 +159,7 @@ flutter_assets:
 - **field_prefix 为可选字段，如果想去掉 assets 前缀，则提供一个空，默认为 assets** (field_prefix is ​​an optional field, if you want to remove the assets prefix, provide an empty value, the default is assets)
 
 ```yaml
-flutter_assets:
+flutter_assets_gen:
   assets_path: assets/
   output_path: lib/constants/
   filename: assets.dart
@@ -169,7 +169,7 @@ flutter_assets:
 - **修改 prefix** (Modify prefix)
 
 ```yaml
-flutter_assets:
+flutter_assets_gen:
   assets_path: assets/
   output_path: lib/constants/
   filename: assets.dart
@@ -179,7 +179,7 @@ flutter_assets:
 - **忽略注释** (ignore comments)
 
 ```yaml
-flutter_assets:
+flutter_assets_gen:
   assets_path: assets/
   output_path: lib/constants/
   filename: assets.dart
@@ -190,7 +190,7 @@ flutter_assets:
 - **只选择部分文件夹** (Select Partial Folders)
 
 ```yaml
-flutter_assets:
+flutter_assets_gen:
   assets_path:
     - assets/images/
     - assets/msic/
@@ -205,7 +205,7 @@ flutter_assets:
   使用 exclude 字段数组，来排除不需要生成的文件夹。匹配正则表达式。
 
 ```yaml
-flutter_assets:
+flutter_assets_gen:
   assets_path:
     - assets/images/
     - assets/msic/
@@ -248,7 +248,7 @@ Image(image: AssetImage(Assets.assetsImagesTabHome,), height: 30, width: 30),
 ## 修改类名 (Modify class name)
 
 ```yaml
-flutter_assets:
+flutter_assets_gen:
   assets_path: assets/
   output_path: lib/constants/
   filename: assets.dart
@@ -278,7 +278,7 @@ class R {
 当通过 `flutter create --template=package my_assets_package` 来创建资源包时，可能会用到
 
 ```yaml
-flutter_assets:
+flutter_assets_gen:
   assets_path:
     - lib/assets/images/
     - lib/assets/msic/

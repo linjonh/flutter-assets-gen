@@ -80,7 +80,7 @@ export function loadConf(): IConfig {
 
   let filename = "assets.dart"
   let classname = "Assets"
-  if (!doc || !doc.flutter_assets) {
+  if (!doc || !doc.flutter_assets_gen) {
     vscode.window.showInformationMessage(
       "Not found assets_config in pubspec.yaml file"
     )
@@ -97,7 +97,7 @@ export function loadConf(): IConfig {
     }
   }
 
-  const config = doc.flutter_assets as IConfig
+  const config = doc.flutter_assets_gen as IConfig
   const assets_path: string[] | string | undefined = config.assets_path
   const exclude: string[] | string | undefined = config.exclude
   const output_path = config.output_path || "lib/assets"
@@ -114,7 +114,7 @@ export function loadConf(): IConfig {
   classname = config.classname || "Assets"
   if (!assets_path) {
     vscode.window.showWarningMessage(
-      "pubspec.yaml should provide flutter_assets.assets_path field"
+      "pubspec.yaml should provide flutter_assets_gen.assets_path field"
     )
   }
 

@@ -10,14 +10,10 @@ export class VNode {
 
   generateComments() {
     if (this.ignoreComments) return ""
-    return `
-  /// Assets for ${this.info.identifier}
-  /// ${this.info.tag}
-    `
+    return `  /// Assets for ${this.info.identifier}\n  /// ${this.info.tag}\n`
   }
 
   gen() {
-    return `${this.generateComments().trimEnd()}
-  static const String ${this.info.identifier} = "${this.info.tag}";`
+    return `${this.generateComments()}  static const String ${this.info.identifier} = '${this.info.tag}';`
   }
 }
